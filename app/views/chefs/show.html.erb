@@ -58,7 +58,7 @@
               </div>
             </div>
         <% end %>
-        
+
             <% if current_cart.book_date.present? %>
             <div class="pull-right">
               <% if current_user && !current_user.admin? %>
@@ -91,7 +91,7 @@
                             </li>
                         </ul>
                 </div>
-                        <div class="tab-content">
+                      <div class="tab-content">
                         <div class="tab-pane active" id="viewcomments">
                           <% @chef_comments.each do |chef_comment| %>
                             <div class="reviews">

@@ -54,8 +54,6 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bootstrap3-datetimepicker-rails (4.17.43)
-      momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     byebug (9.0.5)
     carrierwave (1.0.0)
@@ -246,8 +244,6 @@ GEM
     mini_magick (4.6.0)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
-    momentjs-rails (2.17.1)
-      railties (>= 3.1)
     multi_json (1.12.1)
     nio4r (1.2.1)
     nokogiri (1.6.8)
@@ -366,7 +362,6 @@ DEPENDENCIES
   aasm
   awesome_rails_console
   bootstrap-sass
-  bootstrap3-datetimepicker-rails (~> 4.17.43)
   byebug
   carrierwave
   coffee-rails (~> 4.2)
@@ -379,7 +374,6 @@ DEPENDENCIES
   letter_opener
   listen (~> 3.0.5)
   mini_magick
-  momentjs-rails (>= 2.9.0)
   pg
   puma (~> 3.0)
   rails (~> 5.0.0)

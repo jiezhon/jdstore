@@ -90,7 +90,13 @@
 </body>
 </html>
 
-<h4 class="top-chef">本周热门私厨</h4>
+<div class="container">
+      <h4 class="top-chef">本周热门私厨</h4>
+      <div class="pull-right" style="margin-right: 180px; margin-top: 20px;">
+        <i><%= link_to('更多私厨...', chefs_path, :style => "color: #878585; text-decoration: underline;") %></i>
+      </div>
+</div>
+
 <hr>
 <section id="chef">
 <div class="container">
@@ -99,9 +105,9 @@
 </div>
 </div>
 
-<div class="pull-right" style="margin-right: 180px; margin-top: 20px;">
- <%= link_to('更多私厨...', chefs_path, :style => "color: black") %>
-</div>
+<!-- <div class="pull-right" style="margin-right: 180px; margin-top: 20px;">
+ <%#= link_to('更多私厨...', chefs_path, :style => "color: black") %>
+</div> -->
 </section>
 
 <h4 class="top-dish">最受欢迎料理</h4>
@@ -116,6 +122,6 @@
 
 <br>
 
-<div class="text-center" style="margin-bottom:-90px;">
-  <%= link_to "关于我们" , about_path, :style => "color: black"%>
-</div>
+<!-- <div class="text-center" style="margin-bottom:-90px;">
+  <%#= link_to "关于我们" , about_path, :style => "color: black"%>
+</div> -->

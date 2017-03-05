@@ -45,6 +45,9 @@ body {
 .chefs .introduction-sub {
   text-align: right;
 }
+.chefs .title-sub {
+  text-align: left;
+}
 
 .products {
   width: 950px;
@@ -198,7 +201,15 @@ img {
     width: 200px;
     //border: 1px solid red;
   }
+  .image img {
+    transition: 0.5s;
+    overflow: hidden;
+  }
 
+  .responsive .image img {
+    transition: 0.5s;
+    overflow: hidden;
+  }
   .image:hover img {
     -moz-transform: scale(1.1);
     -webkit-transform: scale(1.1);
@@ -381,7 +392,7 @@ div.fig_p {
   padding-left: 50px;
   margin-left: 80px;
   margin-right: 150px;
-  margin-bottom: 100px; 
+  margin-bottom: 100px;
 }
 
 .backtoroot{

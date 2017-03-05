@@ -1,13 +1,24 @@
 <div class=" col-md-3 box">
   <div class="image" style="width: 200px; margin-bottom: -20px;">
-    <%= link_to chef_path(chef) do %>
-      <% if chef.photos.present? %>
-        <%#= image_tag(chef.image.thumb.url) %>
-        <%= image_tag(chef.photos[0].image.thumb.url, class: "thumbnail") %>
-      <% else %>
-        <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
+    <% if @product.present? %>
+      <%= link_to chef_path(chef, product_id: @product.id) do %>
+        <% if chef.photos.present? %>
+          <%= image_tag(chef.photos[0].image.thumb.url, class: "thumbnail") %>
+        <% else %>
+          <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
+        <% end %>
+      <% end %>
+    <% else %>
+        <%= link_to chef_path(chef) do %>
+        <% if chef.photos.present? %>
+          <%= image_tag(chef.photos[0].image.thumb.url, class: "thumbnail") %>
+        <% else %>
+          <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
+        <% end %>
       <% end %>
     <% end %>
+
+
   </div>
 
   <div class="fig">
@@ -48,7 +59,9 @@
             <% end %>
           <% end %>
         <% else %>
-          <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true" ></i>
+          <%= link_to new_user_session_path do %>
+            <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true" ></i>
+          <% end %>
         <% end %>
         <%= chef.followers.count %>
       </span>

@@ -22,7 +22,6 @@ class CartsController < ApplicationController
 
   def update
     @cart = Cart.find(params[:id])
-
     @cart.update(cart_params)
     redirect_to :back
   end

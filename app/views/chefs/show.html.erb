@@ -1,11 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" style="margin-top: 15px;">
     <!-- <% if @chef.image.present? %>
       <%#= image_tag(@chef.image.medium.url, class: "thumbnail") %>
     <% else %>
       <%#= image_tag("http://placehold.it/400x400&text=No Pic", class: "thumbnail") %>
     <% end %> -->
+    <%#= @product.title %>
     <% if @photos.present? %>
       <% @photos.each_with_index do |p, index| %>
         <!-- <% if index == 0 %>
@@ -44,28 +45,69 @@
         </div>
       </div>
 
-      <% if current_user && !current_user.admin? %>
+      <% if current_user  %>
+        <% if !current_user.admin? %>
           <div class="row" style="margin-top: 10px;">
-              <div class='col-sm-6'>
-                  <div class="form-group">
-                  <%= simple_form_for  current_cart do |f| %>
-                    <%= f.input :book_date, as: :date, start_year: Date.today.year,
-                      end_year: Date.today.year + 1, label: false %>
-                      <%= f.submit "预定私厨", data: {disable_with: "Submiting..." } ,
-                          class: "btn  btn-success"%>
-                  <% end %>
-                  </div>
-              </div>
+            <div class='col-sm-6'>
+                <div class="form-group">
+                <%= simple_form_for  current_cart do |f| %>
+                  <%= f.input :book_date, as: :date, start_year: Date.today.year,
+                    end_year: Date.today.year + 1, label: false %>
+                  <%= f.submit "预定私厨", data: {disable_with: "Submiting..." } , class: "btn  btn-success" %>
+                <% end %>
+                </div>
             </div>
+          </div>
         <% end %>
+      <% else %>
+        <div class="row" style="margin-top: 10px;">
+          <div class='col-sm-6'>
+              <div class="form-group">
+              <%= simple_form_for  current_cart do |f| %>
+                <%= f.input :book_date, as: :date, start_year: Date.today.year,
+                  end_year: Date.today.year + 1, label: false %>
+                <%= link_to("预定私厨", new_user_session_path, :class => "btn  btn-success") %>
+              <% end %>
+              </div>
+          </div>
+        </div>
+      <% end %>
 
             <% if current_cart.book_date.present? %>
             <div class="pull-right">
               <% if current_user && !current_user.admin? %>
-                <% if current_cart.chef_id != nil && @current_chef_in_cart.style != @chef.style %>
-                  <%= link_to("菜品订制", add_to_cart_chef_path(@chef), :data => {:confirm => "更换不同菜系的厨师将清空当前购物车。确定吗？" }, :method => :post, :class => "btn btn-primary btn-danger") %>
+                <% if current_cart.chef_id != nil %>
+                 <% if current_cart.chef_id == @chef.id %>
+                  <% if @product.present? %>
+                    <%= link_to("菜品订制", add_to_cart_chef_path(@chef, product_id: @product.id), :method => :post, :class => "btn btn-primary btn-danger") %>
+                  <% else %>
+                    <%= link_to("菜品订制", add_to_cart_chef_path(@chef), :method => :post, :class => "btn btn-primary btn-danger") %>
+                  <% end %>
+                 <% else %>
+                  <% if @current_chef_in_cart.style != @chef.style %>
+                    <% if @product.present? %>
+                      <%= link_to("菜品订制", add_to_cart_chef_path(@chef, product_id: @product.id), :data => {:confirm => "厨师#{@chef.name}擅长的菜系为#{@chef.style}。更换不同菜系的厨师将清空当前购物车。确定吗？" },
+                                  :method => :post, :class => "btn btn-primary btn-danger") %>
+                    <% else %>
+                      <%= link_to("菜品订制", add_to_cart_chef_path(@chef), :data => {:confirm => "厨师#{@chef.name}擅长的菜系为#{@chef.style}。更换不同菜系的厨师将清空当前购物车。确定吗？" },
+                                  :method => :post, :class => "btn btn-primary btn-danger") %>
+                    <% end %>
+
+                  <% else %>
+                    <% if @product.present? %>
+                      <%= link_to("菜品订制", add_to_cart_chef_path(@chef, product_id: @product.id), :data => {:confirm => "确定更换厨师#{@chef.name}吗？" }, :method => :post, :class => "btn btn-primary btn-danger") %>
+                    <% else %>
+                      <%= link_to("菜品订制", add_to_cart_chef_path(@chef), :data => {:confirm => "确定更换厨师#{@chef.name}吗？" }, :method => :post, :class => "btn btn-primary btn-danger") %>
+                    <% end %>
+                  <% end %>
+                 <% end %>
                 <% else %>
-                  <%= link_to("菜品订制", add_to_cart_chef_path(@chef), :method => :post, :class => "btn btn-primary btn-danger") %>
+                  <% if @product.present? %>
+                    <%= link_to("菜品订制", add_to_cart_chef_path(@chef, product_id: @product.id), :method => :post, :class => "btn btn-primary btn-danger") %>
+                  <% else %>
+                    <%= link_to("菜品订制", add_to_cart_chef_path(@chef), :method => :post, :class => "btn btn-primary btn-danger") %>
+                  <% end %>
+
                 <% end %>
               <% end %>
             </div>

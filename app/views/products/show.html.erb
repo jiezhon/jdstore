@@ -1,7 +1,7 @@
 <div class="container">
   <div class="container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" style="margin-top: 15px;">
       <!-- <% if @product.image.present? %>
         <%#= image_tag(@product.image.medium.url, class: "thumbnail") %>
       <% else %>
@@ -51,6 +51,15 @@
             <% end %>
           <% else %>
             <%= link_to("选择私厨", chefs_path(style: @product.style), :class => "add-to-cart btn btn-default") %>
+          <% end %>
+        <% else %>
+          <% if @product.quantity.present? && @product.quantity > 0 %>
+            <%= link_to("加入购物车", new_user_session_path, :class => "add-to-cart btn btn-default") %>
+          <% else %>
+            已销售一空，无法购买
+          <% end %>
+          <%= link_to new_user_session_path do %>
+            <i class="unlike btn btn-default fa fa-heart-o" aria-hidden="true" ></i>
           <% end %>
         <% end %>
       </div>

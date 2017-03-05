@@ -3,6 +3,19 @@ class ChefsController < ApplicationController
 
   def index
     @chefs = Chef.published
+
+    if params[:city].present?
+      @city = params[:city]
+      @chefs = @chefs.where(city: params[:city])
+    end
+    if params[:style].present?
+      @style = params[:style]
+      @chefs = @chefs.where(style: params[:style])
+    end
+    if params[:product_id].present?
+      @product = Product.find(params[:product_id])
+    end
+
     if params[:order].present?
 
     @chefs = case params[:order]
@@ -14,12 +27,6 @@ class ChefsController < ApplicationController
               @chefs.recent
             end
     end
-    if params[:city].present?
-      @chefs = @chefs.where(city: params[:city])
-    end
-    if params[:style].present?
-      @chefs = @chefs.where(style: params[:style])
-    end
   end
 
   def show
@@ -27,9 +34,16 @@ class ChefsController < ApplicationController
     @photos = @chef.photos.all
     if current_cart.chef_id != nil
       @current_chef_in_cart = Chef.find(current_cart.chef_id)
-      if @chef.style != @current_chef_in_cart.style
-        flash[:warning] = "您当前选择的厨师 #{@current_chef_in_cart.name} 的菜系是#{@current_chef_in_cart.style}， 如果更换其他菜系厨师需要重新选择菜品！"
+      if @chef.id != current_cart.chef_id
+        if @chef.style != @current_chef_in_cart.style
+          flash[:warning] = "您当前选择的厨师 #{@current_chef_in_cart.name} 擅长的菜系是#{@current_chef_in_cart.style}， 如果更换其他菜系厨师需要重新选择菜品！"
+        else
+          flash[:warning] = "您当前选择的厨师 #{@current_chef_in_cart.name}"
+        end
       end
+    end
+    if params[:product_id].present?
+      @product = Product.find(params[:product_id])
     end
     @chef_comments = ChefComment.where(chef_id: @chef.id).order("created_at DESC")
     @chef_comment = ChefComment.new
@@ -47,11 +61,19 @@ class ChefsController < ApplicationController
             current_cart.clean!
             current_cart.chef_id = nil
             current_cart.save
-            flash[:warning] = "当前购物车已清空！请重新选择菜品！"
+            #flash[:warning] = "当前购物车已清空！请重新选择菜品！"
           end
         end
         current_cart.chef_id = @chef.id
         current_cart.save
+
+        if params[:product_id].present?
+          @product = Product.find(params[:product_id])
+          if !current_cart.products.include?(@product)
+            current_cart.add_product_to_cart(@product)
+          end
+          flash[:notice] = "为您推荐厨师#{@chef.name}的其他菜品，敬请选择。"
+        end
         redirect_to products_path
     end
   end

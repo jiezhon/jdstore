@@ -23,6 +23,10 @@ class CartsController < ApplicationController
   def update
     @cart = Cart.find(params[:id])
     @cart.update(cart_params)
+
+    if params[:product_id].present?
+      @product = Product.find(params[:product_id])
+    end
     redirect_to :back
   end
 

@@ -72,7 +72,7 @@ class ChefsController < ApplicationController
           if !current_cart.products.include?(@product)
             current_cart.add_product_to_cart(@product)
           end
-          flash[:notice] = "为您推荐厨师#{@chef.name}的其他菜品，敬请选择。"
+          flash[:notice] = "为您推荐厨师#{@chef.name}的其他菜品。"
         end
         redirect_to products_path
     end

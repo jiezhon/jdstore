@@ -53,6 +53,9 @@
                 <%= simple_form_for  current_cart do |f| %>
                   <%= f.input :book_date, as: :date, start_year: Date.today.year,
                     end_year: Date.today.year + 1, label: false %>
+                  <% if @product.present? %>
+                    <%= f.hidden_field :product_id, :value => @product.id %>
+                  <% end %>
                   <%= f.submit "预定私厨", data: {disable_with: "Submiting..." } , class: "btn  btn-success" %>
                 <% end %>
                 </div>
@@ -121,7 +124,7 @@
                 <%= simple_format(@chef.description) %>
               </p>
             </div>
-            <hr style="margin-top: 50px;">
+            <hr style="margin-top: 100px;">
             <div class="panel with-nav-tabs panel-default" style="height: 600px;">
                 <div class="panel-heading">
                         <ul class="nav nav-tabs">

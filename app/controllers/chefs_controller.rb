@@ -67,6 +67,14 @@ class ChefsController < ApplicationController
         current_cart.chef_id = @chef.id
         current_cart.save
 
+        #Start for insert a record to chef_times
+        chef_time = ChefTime.new
+        chef_time.chef = @chef
+        chef_time.day = current_cart.book_date.to_formatted_s(:db)
+        chef_time.is_available = false
+        chef_time.save
+        #End
+
         if params[:product_id].present?
           @product = Product.find(params[:product_id])
           if !current_cart.products.include?(@product)

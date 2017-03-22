@@ -51,8 +51,7 @@
             <div class='col-sm-6'>
                 <div class="form-group">
                 <%= simple_form_for  current_cart do |f| %>
-                  <%= f.input :book_date, as: :date, start_year: Date.today.year,
-                    end_year: Date.today.year + 1, label: false %>
+                  <%= f.input :book_date, as: :string,  label: "预约日期" %>
                   <% if @product.present? %>
                     <%= f.hidden_field :product_id, :value => @product.id %>
                   <% end %>
@@ -173,3 +172,12 @@
       </div>
     </div>
 </div>
+
+<%= content_for :handwrite_javascript do %>
+<script>
+$('#cart_book_date').datepicker({
+  format: "yyyy/mm/dd",
+  startDate: "tomorrow"
+});
+</script>
+<% end %>

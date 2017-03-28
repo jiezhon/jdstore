@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
     @products = Product.published.where.not(:id => 1) #1 is a dummy product
     @chef = Chef.find(current_cart.chef_id)
     @products = @products.where(style: @chef.style)
+
   end
 
   def show

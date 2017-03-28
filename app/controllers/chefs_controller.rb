@@ -2,7 +2,7 @@ class ChefsController < ApplicationController
   before_action :authenticate_user!, only: [:add_to_cart]
 
   def index
-    @chefs = Chef.published
+    @chefs = Chef.includes(:photos).published
 
     if params[:city].present?
       @city = params[:city]
@@ -27,6 +27,7 @@ class ChefsController < ApplicationController
               @chefs.recent
             end
     end
+
   end
 
   def show

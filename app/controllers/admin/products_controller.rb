@@ -1,8 +1,5 @@
-class Admin::ProductsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :admin_required
-
-  layout "admin"
+class Admin::ProductsController < AdminController
+  before_action :find_product, only: [:show, :edit, :update, :destroy, :publish, :hidden]
 
   def index
     @products = Product.where.not(:id => 1) #1 is a dummy product
@@ -29,11 +26,9 @@ class Admin::ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
 
     if params[:product_photos] != nil
       @product.product_photos.destroy_all #need to destroy old pics first
@@ -53,12 +48,10 @@ class Admin::ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
     @product_photos = @product.product_photos.all
   end
 
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
 
     cart_items = CartItem.where(product_id: params[:id])
@@ -68,13 +61,11 @@ class Admin::ProductsController < ApplicationController
   end
 
   def publish
-    @product = Product.find(params[:id])
     @product.publish!
     redirect_to :back
   end
 
   def hidden
-    @product = Product.find(params[:id])
     @product.hide!
     redirect_to :back
   end
@@ -84,4 +75,7 @@ class Admin::ProductsController < ApplicationController
     params.require(:product).permit(:title, :description, :quantity, :price, :image, :is_hidden, :style, :special)
   end
 
+  def find_product
+    @product = Product.find(params[:id])
+  end
 end

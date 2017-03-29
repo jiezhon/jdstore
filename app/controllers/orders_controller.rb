@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:create]
+  before_action :find_order, only: [:apply_to_cancel, :apply_to_return]
+  before_action :find_order_by_token, only: [:pay_with_wechat, :pay_with_alipay]
 
   def create
     @order = Order.new(order_params)
@@ -56,7 +58,6 @@ class OrdersController < ApplicationController
   end
 
   def pay_with_alipay
-    @order = Order.find_by_token(params[:id])
     @order.set_payment_with!("alipay")
     @order.make_payment!
 
@@ -64,7 +65,6 @@ class OrdersController < ApplicationController
   end
 
   def pay_with_wechat
-    @order = Order.find_by_token(params[:id])
     @order.set_payment_with!("wechat")
     @order.make_payment!
 
@@ -72,7 +72,6 @@ class OrdersController < ApplicationController
   end
 
   def apply_to_cancel
-    @order = Order.find(params[:id])
     @chef = ChefShadow.find_by(order_id: @order.id)
     OrderMailer.apply_cancel(@order, @chef).deliver!
     flash[:notice] = "已提交撤销申请"
@@ -80,7 +79,6 @@ class OrdersController < ApplicationController
   end
 
   def apply_to_return
-    @order = Order.find(params[:id])
     @chef = ChefShadow.find_by(order_id: @order.id)
     OrderMailer.apply_return(@order, @chef).deliver!
     flash[:notice] = "已提交退货申请"
@@ -90,5 +88,13 @@ class OrdersController < ApplicationController
   private
   def order_params
     params.require(:order).permit(:billing_name, :billing_address, :shipping_name, :shipping_address)
+  end
+
+  def find_order
+    @order = Order.find(params[:id])
+  end
+
+  def find_order_by_token
+    @order = Order.find_by_token(params[:id])
   end
 end

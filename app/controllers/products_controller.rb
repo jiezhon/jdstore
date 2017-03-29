@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:add_to_cart]
+  before_action :find_product, only: [:show, :add_to_cart, :follow_dish, :unfollow_dish]
 
   def index
     @products = Product.published.where.not(:id => 1) #1 is a dummy product
@@ -9,12 +10,10 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
     @product_photos = @product.product_photos.all
   end
 
   def add_to_cart
-    @product = Product.find(params[:id])
     if !current_cart.products.include?(@product)
       current_cart.add_product_to_cart(@product)
       flash[:notice] = "你已成功将 #{@product.title} 加入购物车"
@@ -26,16 +25,21 @@ class ProductsController < ApplicationController
   end
 
   def follow_dish
-    @product = Product.find(params[:id])
     current_user.follow_dish!(@product)
 
     redirect_to :back
   end
 
   def unfollow_dish
-    @product = Product.find(params[:id])
     current_user.unfollow_dish!(@product)
 
     redirect_to :back
   end
+
+  private
+
+  def find_product
+    @product = Product.find(params[:id])
+  end
+
 end

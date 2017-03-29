@@ -1,8 +1,5 @@
-class Admin::ChefsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :admin_required
-
-  layout "admin"
+class Admin::ChefsController < AdminController
+  before_action :find_chef, only: [:show, :edit, :update, :publish, :hidden]
 
   def index
     @chefs = Chef.all
@@ -29,11 +26,9 @@ class Admin::ChefsController < ApplicationController
   end
 
   def edit
-    @chef = Chef.find(params[:id])
   end
 
   def update
-    @chef = Chef.find(params[:id])
     if params[:photos] != nil
       @chef.photos.destroy_all #need to destoy old pics first
 
@@ -51,18 +46,15 @@ class Admin::ChefsController < ApplicationController
   end
 
   def show
-    @chef = Chef.find(params[:id])
     @photos = @chef.photos.all
   end
 
   def publish
-    @chef = Chef.find(params[:id])
     @chef.publish!
     redirect_to :back
   end
 
   def hidden
-    @chef = Chef.find(params[:id])
     @chef.hide!
     redirect_to :back
   end
@@ -72,4 +64,7 @@ class Admin::ChefsController < ApplicationController
     params.require(:chef).permit(:name, :description, :chef_level_id, :style, :image, :is_hidden, :phone, :city, :position)
   end
 
+  def find_chef
+    @chef = Chef.find(params[:id])
+  end
 end

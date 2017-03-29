@@ -1,6 +1,6 @@
 class ChefsController < ApplicationController
   before_action :authenticate_user!, only: [:add_to_cart]
-
+  before_action :find_chef, only: [:show, :follow, :unfollow]
   def index
     @chefs = Chef.includes(:photos).published
 
@@ -31,7 +31,6 @@ class ChefsController < ApplicationController
   end
 
   def show
-    @chef = Chef.find(params[:id])
     @photos = @chef.photos.all
     if current_cart.chef_id != nil
       @current_chef_in_cart = Chef.find(current_cart.chef_id)
@@ -88,17 +87,20 @@ class ChefsController < ApplicationController
   end
 
   def follow
-    @chef = Chef.find(params[:id])
     current_user.follow!(@chef)
 
     redirect_to :back
   end
 
   def unfollow
-    @chef = Chef.find(params[:id])
     current_user.unfollow!(@chef)
 
     #flash[:warning] = "Stop follow!"
     redirect_to :back
+  end
+
+  private
+  def find_chef
+    @chef = Chef.find(params[:id])
   end
 end

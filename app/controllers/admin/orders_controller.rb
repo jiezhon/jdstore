@@ -1,4 +1,5 @@
 class Admin::OrdersController < AdminController
+  include Util
   before_action :find_order, only: [:show, :ship, :shipped, :cancel, :return]
 
   def index
@@ -12,10 +13,7 @@ class Admin::OrdersController < AdminController
   end
 
   def ship
-    @chef = ChefShadow.find_by(order_id: @order.id)
-    @order.ship!
-    OrderMailer.notify_ship(@order, @chef).deliver!
-    redirect_to :back
+    admin_do ("ship")
   end
 
   def shipped
@@ -24,10 +22,7 @@ class Admin::OrdersController < AdminController
   end
 
   def cancel
-    @chef = ChefShadow.find_by(order_id: @order.id)
-    @order.cancell_order!
-    OrderMailer.notify_cancel(@order, @chef).deliver!
-    redirect_to :back
+    admin_do ("cancel")
   end
 
   def return

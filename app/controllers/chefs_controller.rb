@@ -1,6 +1,7 @@
 class ChefsController < ApplicationController
   before_action :authenticate_user!, only: [:add_to_cart]
   before_action :find_chef, only: [:show, :follow, :unfollow]
+
   def index
     @chefs = Chef.includes(:photos).published
 
@@ -19,15 +20,14 @@ class ChefsController < ApplicationController
     if params[:order].present?
 
     @chefs = case params[:order]
-            when 'by_followers'
-              @chefs.sort_by{|chef| chef.followers.count}.reverse
-            when 'by_level'
-              @chefs.order("chef_level_id")
-            else
-              @chefs.recent
-            end
+              when 'by_followers'
+                  @chefs.sort_by{|chef| chef.followers.count}.reverse
+              when 'by_level'
+                  @chefs.order("chef_level_id")
+              else
+                @chefs.recent
+             end
     end
-
   end
 
   def show

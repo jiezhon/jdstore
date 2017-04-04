@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  include Util
+
   before_action :authenticate_user!, only: [:create]
   before_action :find_order, only: [:apply_to_cancel, :apply_to_return]
   before_action :find_order_by_token, only: [:pay_with_wechat, :pay_with_alipay]
@@ -42,9 +44,7 @@ class OrdersController < ApplicationController
       current_cart.save
       current_cart.clean!
 
-
       OrderMailer.notify_order_placed(@order, @chef_shadow).deliver!
-
       redirect_to order_path(@order.token)
     else
       render 'carts/checkout'
@@ -58,31 +58,19 @@ class OrdersController < ApplicationController
   end
 
   def pay_with_alipay
-    @order.set_payment_with!("alipay")
-    @order.make_payment!
-
-    redirect_to order_path(@order.token), notice: "使用支付宝成功完成付款"
+    pay_with("alipay")
   end
 
   def pay_with_wechat
-    @order.set_payment_with!("wechat")
-    @order.make_payment!
-
-    redirect_to order_path(@order.token), notice: "使用微信支付功完成付款"
+    pay_with("wechat")
   end
 
   def apply_to_cancel
-    @chef = ChefShadow.find_by(order_id: @order.id)
-    OrderMailer.apply_cancel(@order, @chef).deliver!
-    flash[:notice] = "已提交撤销申请"
-    redirect_to :back
+    apply_to("cancel")
   end
 
   def apply_to_return
-    @chef = ChefShadow.find_by(order_id: @order.id)
-    OrderMailer.apply_return(@order, @chef).deliver!
-    flash[:notice] = "已提交退货申请"
-    redirect_to :back
+    apply_to("return")
   end
 
   private
@@ -97,4 +85,5 @@ class OrdersController < ApplicationController
   def find_order_by_token
     @order = Order.find_by_token(params[:id])
   end
+
 end

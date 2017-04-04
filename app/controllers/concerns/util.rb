@@ -15,9 +15,9 @@ module Util
     @order.set_payment_with!(method)
     @order.make_payment!
 
-    if method = "alipay"
+    if method == "alipay"
       redirect_to order_path(@order.token), notice: "使用支付宝成功完成付款"
-    elsif method = "wechat"
+    elsif method == "wechat"
       redirect_to order_path(@order.token), notice: "使用微信支付功完成付款"
     end
   end

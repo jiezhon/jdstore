@@ -1,4 +1,5 @@
 class Chef < ApplicationRecord
+  include HasPhotos
   validates :name, presence: true
   validates :city, presence: true
 

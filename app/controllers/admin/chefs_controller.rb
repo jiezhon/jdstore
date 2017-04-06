@@ -1,4 +1,5 @@
 class Admin::ChefsController < AdminController
+  
   before_action :find_chef, only: [:show, :edit, :update, :publish, :hidden]
 
   def index
@@ -12,13 +13,14 @@ class Admin::ChefsController < AdminController
 
   def create
     @chef = Chef.create(chef_params)
+    @chef.build_photos(params[:photos])
 
     if @chef.save
-      if params[:photos] != nil
-        params[:photos]['image'].each do |a|
-          @photo = @chef.photos.create(:image => a)
-        end
-      end
+      # if params[:photos] != nil
+      #   params[:photos]['image'].each do |a|
+      #     @photo = @chef.photos.create(:image => a)
+      #   end
+      # end
       redirect_to admin_chefs_path, notice: "Chef Created."
     else
       render :new

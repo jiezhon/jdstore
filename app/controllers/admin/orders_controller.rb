@@ -13,7 +13,7 @@ class Admin::OrdersController < AdminController
   end
 
   def ship
-    admin_do ("ship")
+    admin_do("ship")
   end
 
   def shipped
@@ -22,7 +22,7 @@ class Admin::OrdersController < AdminController
   end
 
   def cancel
-    admin_do ("cancel")
+    admin_do("cancel")
   end
 
   def return

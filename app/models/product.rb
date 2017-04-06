@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  include HasPhotos
   validates :title, presence: true
   mount_uploader :image, ImageUploader
 
@@ -6,7 +7,9 @@ class Product < ApplicationRecord
   has_many :followers, through: :favor_product_relationships, source: :user
 
   has_many :product_photos
+  #has_many :photos, :class_name => "ProductPhoto", :foreign_key => "product_id"
   accepts_nested_attributes_for :product_photos
+  #accepts_nested_attributes_for :photos
 
   def publish!
     self.is_hidden = false

@@ -1,11 +1,12 @@
 module Util
   def apply_to(action)
     @chef = ChefShadow.find_by(order_id: @order.id)
+    OrderMailer.apply_action(@order, @chef, action).deliver!
     if action == "cancel"
-      OrderMailer.apply_return(@order, @chef).deliver!
+      #OrderMailer.apply_cancel(@order, @chef).deliver!
       flash[:notice] = "已提交撤销申请"
     elsif action == "return"
-      OrderMailer.apply_return(@order, @chef).deliver!
+      #OrderMailer.apply_return(@order, @chef).deliver!
       flash[:notice] = "已提交退货申请"
     end
     redirect_to :back
@@ -26,11 +27,12 @@ module Util
     @chef = ChefShadow.find_by(order_id: @order.id)
     if action == "ship"
       @order.ship!
-      OrderMailer.notify_ship(@order, @chef).deliver!
+      #OrderMailer.notify_ship(@order, @chef).deliver!
     elsif action == "cancel"
       @order.cancell_order!
-      OrderMailer.notify_cancel(@order, @chef).deliver!
+      #OrderMailer.notify_cancel(@order, @chef).deliver!
     end
+    OrderMailer.notify_status(@order, @chef, action).deliver!
     redirect_to :back
   end
 

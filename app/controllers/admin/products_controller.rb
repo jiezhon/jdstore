@@ -12,6 +12,7 @@ class Admin::ProductsController < AdminController
 
   def create
     @product = Product.create(product_params)
+    #@product.build_photos(params[:photos])
 
     if @product.save
       if params[:product_photos] != nil

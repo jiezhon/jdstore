@@ -7,19 +7,19 @@ class Admin::ProductsController < AdminController
 
   def new
     @product = Product.new
-    @product_photo = @product.product_photos.build #for multi-pics
+    @product_photo = @product.photos.build #for multi-pics
   end
 
   def create
     @product = Product.create(product_params)
-    #@product.build_photos(params[:photos])
+    @product.build_photos(params[:photos])
 
     if @product.save
-      if params[:product_photos] != nil
-        params[:product_photos]['image'].each do |a|
-          @product_photo = @product.product_photos.create(:image => a)
-        end
-      end
+      # if params[:photos] != nil
+      #   params[:photos]['image'].each do |a|
+      #     @product_photo = @product.photos.create(:image => a)
+      #   end
+      # end
       redirect_to admin_products_path, notice: "Product Created."
     else
       render :new
@@ -31,11 +31,11 @@ class Admin::ProductsController < AdminController
 
   def update
 
-    if params[:product_photos] != nil
-      @product.product_photos.destroy_all #need to destroy old pics first
+    if params[:photos] != nil
+      @product.photos.destroy_all #need to destroy old pics first
 
-      params[:product_photos]['image'].each do |a|
-        @picture = @product.product_photos.create(:image => a)
+      params[:photos]['image'].each do |a|
+        @picture = @product.photos.create(:image => a)
       end
 
       @product.update(product_params)
@@ -49,7 +49,7 @@ class Admin::ProductsController < AdminController
   end
 
   def show
-    @product_photos = @product.product_photos.all
+    @photos = @product.photos.all
   end
 
   def destroy

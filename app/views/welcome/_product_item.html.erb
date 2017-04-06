@@ -2,8 +2,8 @@
        <div class="responsive">
          <div class="image">
            <%= link_to chefs_path(style: product.style, product_id: product.id) do %>
-             <% if product.product_photos.present? %>
-               <%= image_tag(product.product_photos[0].image.rectangel.url) %>
+             <% if product.photos.present? %>
+               <%= image_tag(product.photos[0].image.rectangel.url) %>
              <% else %>
                <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
              <% end %>

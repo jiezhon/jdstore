@@ -22,7 +22,7 @@
   <div class="group">
     <%#= f.input :image, as: :file %>
     <%= f.label :image %>
-    <%= f.file_field :image, :multiple => true, name: "product_photos[image][]" %>
+    <%= f.file_field :image, :multiple => true, name: "photos[image][]" %>
   </div>
   <%= f.submit "Submit", data: { disable_with: "Submitting..."} %>
 <% end %>

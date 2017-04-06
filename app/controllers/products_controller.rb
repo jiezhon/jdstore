@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product_photos = @product.product_photos.all
+    @photos = @product.photos.all
   end
 
   def add_to_cart

@@ -12,15 +12,15 @@
         <td>
           <% if !product.is_hidden %>
             <%= link_to product_path(product) do %>
-              <% if product.product_photos.present? %>
-                <%= image_tag(product.product_photos[0].image.thumb.url, class: "thumbnail") %>
+              <% if product.photos.present? %>
+                <%= image_tag(product.photos[0].image.thumb.url, class: "thumbnail") %>
               <% else %>
                 <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
               <% end %>
             <% end %>
           <% else %>
-            <% if product.product_photos.present? %>
-              <%= image_tag(product.product_photos[0].image.thumb.url, class: "thumbnail", style: "opacity:0.4;") %>
+            <% if product.photos.present? %>
+              <%= image_tag(product.photos[0].image.thumb.url, class: "thumbnail", style: "opacity:0.4;") %>
             <% else %>
               <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail")%>
             <% end %>

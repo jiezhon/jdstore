@@ -1,7 +1,7 @@
 <h2>编辑菜品</h2>
-<% if @product.product_photos.present? %>
+<% if @product.photos.present? %>
     <span>目前菜品图片</span> <br>
-    <% @product.product_photos.each do |p| %>
+    <% @product.photos.each do |p| %>
       <%= image_tag p.image.thumb.url %><br>
     <% end %>
   <% end %>

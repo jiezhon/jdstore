@@ -23,6 +23,7 @@ class CartsController < ApplicationController
   def update
     @cart = Cart.find(params[:id])
     @cart.update(cart_params)
+    @cart.save
 
     if params[:product_id].present?
       @product = Product.find(params[:product_id])

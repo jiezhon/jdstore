@@ -21,19 +21,20 @@ class ProductsController < ApplicationController
       flash[:warning] = "你的购物车内已有此物品"
     end
 
-    redirect_to products_path
+    #redirect_to products_path
   end
 
   def follow_dish
     current_user.follow_dish!(@product)
 
-    redirect_to :back
+    #redirect_to :back
   end
 
   def unfollow_dish
     current_user.unfollow_dish!(@product)
 
-    redirect_to :back
+    #redirect_to :back
+    render "follow_dish"
   end
 
   private

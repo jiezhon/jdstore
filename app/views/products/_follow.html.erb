@@ -1,0 +1,9 @@
+<% if current_user.has_follow_dish?(product) %>
+  <%= link_to unfollow_dish_product_path(product), :method => :post, :remote => true do %>
+    <i class="fa fa-heart " aria-hidden="true" style="color: #e3654c"></i>
+  <% end %>
+<% else %>
+  <%= link_to follow_dish_product_path(product), :method => :post, :remote => true do %>
+      <i class="fa fa-heart-o " aria-hidden="true" style="color: #e3654c"></i>
+  <% end %>
+<% end %>

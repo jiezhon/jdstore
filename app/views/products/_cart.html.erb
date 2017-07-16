@@ -1,0 +1,9 @@
+<% if product.quantity.present? && product.quantity > 0 %>
+  <% if !current_cart.products.include?(product) %>
+    <%= link_to(content_tag(:i, "", class: "fa fa-shopping-cart fa-lg"), add_to_cart_product_path(product), :remote => true, :method => :post) %>
+  <% else %>
+    已加购物车
+  <% end %>
+<% else %>
+  已售馨
+<% end %>

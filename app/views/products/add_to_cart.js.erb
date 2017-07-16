@@ -1,0 +1,3 @@
+str = "<%=j render :partial => "cart", :locals => { :product => @product} %>"
+$("#dish-add-<%= @product.id %>").html(str)
+$("#myCart" ).html("<%= current_cart.products.count %>");

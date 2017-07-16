@@ -50,7 +50,7 @@
           <div class="row" style="margin-top: 10px;">
             <div class='col-sm-6'>
                 <div class="form-group">
-                <%= simple_form_for  current_cart do |f| %>
+                <%= simple_form_for  current_cart  do |f| %>
                   <%= f.input :book_date, as: :string,  label: "预约日期" %>
                   <% if @product.present? %>
                     <%= f.hidden_field :product_id, :value => @product.id %>
@@ -74,9 +74,11 @@
           </div>
         </div>
       <% end %>
-
             <% if current_cart.book_date.present? %>
-            <div class="pull-right">
+              <!-- <div id="cart-<%= current_cart.id %>" class="pull-right"> -->
+                <!-- <%#= render :partial => "bookdish", :locals => {:chef => @chef, :product => @product, :current_chef_in_cart => @current_chef_in_cart} %> -->
+              <!-- </div> -->
+              <div class="pull-right">
               <% if current_user && !current_user.admin? %>
                 <% if current_cart.chef_id != nil %>
                  <% if current_cart.chef_id == @chef.id %>
@@ -114,7 +116,6 @@
               <% end %>
             </div>
             <% end %>
-
             <hr style="margin-top: 150px;">
             <div style="height: 150px;">
               <h4>食物回忆

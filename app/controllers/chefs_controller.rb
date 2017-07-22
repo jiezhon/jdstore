@@ -47,6 +47,11 @@ class ChefsController < ApplicationController
     end
     @chef_comments = ChefComment.where(chef_id: @chef.id).order("created_at DESC")
     @chef_comment = ChefComment.new
+
+    set_page_title @chef.name
+
+    page_desription = view_context.truncate(@chef.description, :length => 100)
+    set_page_description "#{page_desription}"
   end
 
   def add_to_cart

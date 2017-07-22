@@ -44,6 +44,7 @@ gem 'fog'
 gem "will_paginate"
 gem 'ransack'
 gem 'seo_helper'
+gem 'sitemap_generator'
 #gem 'momentjs-rails', '>= 2.9.0'
 #gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 gem 'bootstrap-datepicker-rails'

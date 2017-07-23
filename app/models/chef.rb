@@ -1,7 +1,10 @@
 class Chef < ApplicationRecord
   include HasPhotos
-  validates :name, presence: true
-  validates :city, presence: true
+  validates_presence_of :name, :city, :friendly_id
+  validates_uniqueness_of :friendly_id
+  validates_format_of :friendly_id, :with => /\A[a-z0-9\-]+\z/
+
+  before_validation :generate_friendly_id, :on => :create
 
   mount_uploader :image, ImageUploader
 
@@ -29,4 +32,14 @@ class Chef < ApplicationRecord
 
   scope :published, -> { where(is_hidden: false) }
   scope :recent, -> { order('created_at') }
+
+  def to_param
+    self.friendly_id
+  end
+
+  protected
+
+  def generate_friendly_id
+    self.friendly_id ||= SecureRandom.uuid
+  end
 end

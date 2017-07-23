@@ -1,5 +1,5 @@
 class Admin::ChefsController < AdminController
-  
+
   before_action :find_chef, only: [:show, :edit, :update, :publish, :hidden]
 
   def index
@@ -63,10 +63,11 @@ class Admin::ChefsController < AdminController
 
   private
   def chef_params
-    params.require(:chef).permit(:name, :description, :chef_level_id, :style, :image, :is_hidden, :phone, :city, :position)
+    params.require(:chef).permit(:name, :description, :chef_level_id, :style, :image, :is_hidden, :phone, :city, :position,
+                                  :friendly_id)
   end
 
   def find_chef
-    @chef = Chef.find(params[:id])
+    @chef = Chef.find_by_friendly_id(params[:id])
   end
 end

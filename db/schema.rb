@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170325134529) do
+ActiveRecord::Schema.define(version: 20170723081425) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "cart_id"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20170325134529) do
     t.string   "phone"
     t.string   "city"
     t.string   "position"
+    t.string   "friendly_id"
+    t.index ["friendly_id"], name: "index_chefs_on_friendly_id", unique: true
   end
 
   create_table "favor_chefs_relationships", force: :cascade do |t|
@@ -144,6 +146,8 @@ ActiveRecord::Schema.define(version: 20170325134529) do
     t.boolean  "is_hidden",   default: false
     t.string   "style"
     t.boolean  "special",     default: false
+    t.string   "friendly_id"
+    t.index ["friendly_id"], name: "index_products_on_friendly_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

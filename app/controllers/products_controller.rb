@@ -43,7 +43,8 @@ class ProductsController < ApplicationController
   private
 
   def find_product
-    @product = Product.find(params[:id])
+    # @product = Product.find(params[:id])
+    @product = Product.find_by_friendly_id(params[:id])
   end
 
 end

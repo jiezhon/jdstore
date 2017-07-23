@@ -14,7 +14,8 @@ class ChefsController < ApplicationController
       @chefs = @chefs.where(style: params[:style])
     end
     if params[:product_id].present?
-      @product = Product.find(params[:product_id])
+      # @product = Product.find(params[:product_id])
+      @product = Product.find_by_friendly_id(params[:product_id])
     end
 
     if params[:order].present?
@@ -59,7 +60,7 @@ class ChefsController < ApplicationController
       flash[:warning] = "请先选择预定日期！"
       redirect_to :back
     else
-        @chef = Chef.find(params[:id])
+        @chef = Chef.find_by_friendly_id(params[:id])
         if current_cart.chef_id != nil
           current_chef_in_cart = Chef.find(current_cart.chef_id)
           if @chef.style != current_chef_in_cart.style
@@ -106,6 +107,7 @@ class ChefsController < ApplicationController
 
   private
   def find_chef
-    @chef = Chef.find(params[:id])
+    #@chef = Chef.find(params[:id])
+    @chef = Chef.find_by_friendly_id!(params[:id])
   end
 end

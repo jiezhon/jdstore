@@ -1,7 +1,7 @@
 <div class="col-md-4" >
        <div class="responsive">
          <div class="image">
-           <%= link_to chefs_path(style: product.style, product_id: product.id) do %>
+           <%= link_to chefs_path(style: product.style, product_id: product.friendly_id) do %>
              <% if product.photos.present? %>
                <%= image_tag(product.photos[0].image.rectangel.url) %>
              <% else %>

@@ -1,4 +1,9 @@
 <%= simple_form_for [:admin, @chef] do |f| %>
+  <div class="form-group">
+    <%= f.label :friendly_id %>
+    <%= f.text_field :friendly_id, :required => true, :class => "form-control" %>
+    <p class="help-block">限小写英文数字及横线，将作为网址的一部分</p>
+  </div>
   <div class="group">
     <%= f.input :name, :label => "姓名" %>
   </div>

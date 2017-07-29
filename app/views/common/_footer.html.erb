@@ -1,13 +1,13 @@
 <footer class="container" style="margin-top: 100px; ">
     <div class="footer-bottom">
       <div class="container">
-          <p class="pull-left" style="color: #878585;"> Copyright ©2017 西厨私享 <%= content_tag(:i, '', class: 'fa fa-cutlery') %> All Rights Reserved.
+          <p class="pull-left" style="color: #878585;"> Copyright ©2017 <%= t("western_food")%> <%= content_tag(:i, '', class: 'fa fa-cutlery') %> All Rights Reserved.
           </p>
 
           <div class="pull-right">
               <ul class="nav nav-pills social">
                   <li>
-                    <%= link_to "关于我们" , about_path, :style => "color: #878585"%>
+                    <%= link_to t("about_us") , about_path, :style => "color: #878585"%>
                   </li>
                   <li><a href="#">
                     <i class="fa fa-weixin" aria-hidden="true" ></i>

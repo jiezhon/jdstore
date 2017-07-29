@@ -1,0 +1,6 @@
+zh-CN:
+  activerecord:
+    attributes:
+      chef:
+        name: "厨师姓名"
+        city: "所在城市"

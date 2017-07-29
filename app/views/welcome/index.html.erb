@@ -88,9 +88,9 @@
 </html>
 
 <div class="container">
-      <h4 class="top-chef">本周热门私厨</h4>
+      <h4 class="top-chef"><%= t("week_chef")%></h4>
       <div class="pull-right" style="margin-right: 180px; margin-top: 20px;">
-        <i><%= link_to('更多私厨...', chefs_path, :style => "color: #878585; text-decoration: underline;") %></i>
+        <i><%= link_to(t("more_chef"), chefs_path, :style => "color: #878585; text-decoration: underline;") %></i>
       </div>
 </div>
 
@@ -107,7 +107,7 @@
 </div> -->
 </section>
 
-<h4 class="top-dish">最受欢迎料理</h4>
+<h4 class="top-dish"><%= t("popular_food")%></h4>
 <hr>
 <section id="dish">
 <div class="container">

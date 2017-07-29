@@ -1,6 +1,6 @@
 module OrdersHelper
   def render_order_created_time(order)
-    order.created_at.to_s(:shor)
+    order.created_at.to_s(:short)
   end
 
   def render_order_status(order_staus)

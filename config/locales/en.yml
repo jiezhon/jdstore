@@ -21,3 +21,17 @@
 
 en:
   hello: "Hello world"
+  western_food: Customized Western Food
+  switch_language: Language
+  cart: Cart
+  my_order: My Order
+  my_favor: My Favor List
+  logout: LogOut
+  login: Login
+  signup: Sign Up
+  about_us: About Us
+  week_chef: Weekly Hot Private Chefs
+  popular_food: Most Popular Food
+  more_chef: More Private Chefs ...
+  admin_panel: Admin Panel
+  user_profile: Edit User Profile
